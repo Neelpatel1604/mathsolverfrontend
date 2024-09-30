@@ -1,0 +1,46 @@
+.solver-container {
+  background-color: #e8eaf6;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.solver-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.solver-container div {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.solver-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.solver-container input,
+.solver-container select {
+  width: 100%;
+  padding: 8px;
+  font-size: 1em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.solver-container button {
+  margin-top: 15px;
+}
+
+.debug-info {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #e8eaf6;
+  border-radius: 4px;
+  text-align: left;
+}
