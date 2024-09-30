@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-const API_BASE_URL = 'http://10.214.80.103:5000';
+const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
 // BasicCalculator component
 const BasicCalculator = () => {
     // State variables to store the operation, input numbers, result, and error message

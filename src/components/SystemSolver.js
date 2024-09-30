@@ -12,7 +12,7 @@ function SystemSolver() {
         const { name, value } = e.target;
         setParams({ ...params, [name]: value !== '' ? parseFloat(value) : '' });
     };
-    const API_BASE_URL = 'http://10.214.80.103:5000';
+    const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);

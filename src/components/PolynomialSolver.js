@@ -7,7 +7,7 @@ function PolynomialSolver() {
   const [d, setD] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const API_BASE_URL = 'http://10.214.80.103:5000';
+  const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);

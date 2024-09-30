@@ -44,7 +44,7 @@ const MatrixSolver = () => {
       setMatrix2(newMatrix);
     }
   };
-const API_BASE_URL = 'http://10.214.80.103:5000';
+const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
   const handleOperation = async () => {
     setError(null);
     setResult(null);
