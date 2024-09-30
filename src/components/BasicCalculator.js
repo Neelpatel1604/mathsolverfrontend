@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+const API_BASE_URL = 'http://10.214.80.103:5000';
 // BasicCalculator component
 const BasicCalculator = () => {
     // State variables to store the operation, input numbers, result, and error message
@@ -15,7 +15,7 @@ const BasicCalculator = () => {
         e.preventDefault(); // Prevent the default form submission behavior
         try {
             // Send a POST request to the backend API to perform the calculation
-            const response = await axios.post('http://localhost:5000/api/calculate', { operation, a: parseFloat(a), b: parseFloat(b) });
+            const response = await axios.post(`${API_BASE_URL}/api/calculate`, { operation, a: parseFloat(a), b: parseFloat(b) });
             setResult(response.data.result); // Set the result state with the response data
             setError(null); // Clear any previous error
         } catch (err) {

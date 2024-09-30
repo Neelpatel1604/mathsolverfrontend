@@ -12,7 +12,7 @@ function SystemSolver() {
         const { name, value } = e.target;
         setParams({ ...params, [name]: value !== '' ? parseFloat(value) : '' });
     };
-
+    const API_BASE_URL = 'http://10.214.80.103:5000';
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
@@ -27,7 +27,7 @@ function SystemSolver() {
         console.log("Sending data:", data);
 
         try {
-            const response = await fetch('http://localhost:5000/solve_system', {
+            const response = await fetch(`${API_BASE_URL}/solve_system`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

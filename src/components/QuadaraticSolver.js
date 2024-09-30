@@ -6,14 +6,14 @@ function QuadraticSolver() {
     const [c, setC] = useState('');
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
-
+    const API_BASE_URL = 'http://10.214.80.103:5000';
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
         setResult(null);
         console.log("Sending data:", { a, b, c });
         try {
-            const response = await fetch('http://localhost:5000/solve_quadratic', {
+            const response = await fetch(`${API_BASE_URL}/solve_quadratic`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

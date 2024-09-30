@@ -7,14 +7,14 @@ function PolynomialSolver() {
   const [d, setD] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-
+  const API_BASE_URL = 'http://10.214.80.103:5000';
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setResult(null);
     console.log("Sending data:", { a, b, c, d });
     try {
-      const response = await fetch('http://localhost:5000/solve_polynomial', {
+      const response = await fetch(`${API_BASE_URL}/solve_polynomial`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

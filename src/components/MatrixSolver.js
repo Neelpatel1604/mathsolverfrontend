@@ -44,7 +44,7 @@ const MatrixSolver = () => {
       setMatrix2(newMatrix);
     }
   };
-
+const API_BASE_URL = 'http://10.214.80.103:5000';
   const handleOperation = async () => {
     setError(null);
     setResult(null);
@@ -54,7 +54,7 @@ const MatrixSolver = () => {
       if (operation === 'multiply' && multiplyOrder === '2x1') {
         [requestMatrix1, requestMatrix2] = [matrix2, matrix1];
       }
-      const response = await axios.post('http://localhost:5000/api/solve-matrix', {
+      const response = await axios.post(`${API_BASE_URL}/api/solve-matrix`, {
         operation,
         matrix1: requestMatrix1,
         matrix2: ['add', 'subtract', 'multiply'].includes(operation) ? requestMatrix2 : undefined

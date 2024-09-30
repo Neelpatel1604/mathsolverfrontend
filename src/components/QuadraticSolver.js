@@ -7,12 +7,12 @@ function QuadraticSolver() {
   const [c, setC] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-
+  const API_BASE_URL = 'http://10.214.80.103:5000';
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Sending data:", { a, b, c });
     try {
-      const response = await axios.post('http://localhost:5000/solve_quadratic', { a: parseFloat(a), b: parseFloat(b), c: parseFloat(c) });
+      const response = await axios.post(`${API_BASE_URL}/solve_quadratic`, { a: parseFloat(a), b: parseFloat(b), c: parseFloat(c) });
       console.log("Received response:", response.data);
       setResult(response.data.result);
       setError(null);
