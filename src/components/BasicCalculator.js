@@ -45,7 +45,7 @@ const BasicCalculator = () => {
                         <option value="multiply">Multiply</option>
                         <option value="divide">Divide</option>
                         <option value="exponent">Exponent</option>
-                        <option value="sqrt">Square Root</option>
+                        <option value="sqrt">Root</option>
                     </select>
                 </div>
                 <button type="submit">Calculate</button>
