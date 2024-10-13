@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000'; // Update this to your actual backend URL
+const API_BASE_URL = 'https://mathsolverbackend.onrender.com'; // Update this to your actual backend URL
 
 const api = axios.create({
   baseURL: API_BASE_URL,
