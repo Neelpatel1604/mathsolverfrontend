@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './SystemSolver.css'; // Make sure to create this CSS file
 
 function SystemSolver() {
     const [equationCount, setEquationCount] = useState(2);
@@ -12,7 +11,8 @@ function SystemSolver() {
         const { name, value } = e.target;
         setParams({ ...params, [name]: value !== '' ? parseFloat(value) : '' });
     };
-    const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
@@ -62,11 +62,14 @@ function SystemSolver() {
                         placeholder={`a${i}${j}`}
                         onChange={handleChange}
                         required
+                        className="w-20 p-3 text-center border-2 border-gray-200 rounded-lg text-base bg-gray-50 
+                                 transition-all duration-200 focus:outline-none focus:border-indigo-600 
+                                 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     />
                 );
             }
             inputs.push(
-                <div key={`row${i}`} className="input-row">
+                <div key={`row${i}`} className="flex items-center justify-center mb-4 gap-3">
                     {rowInputs}
                     <input
                         key={`d${i}`}
@@ -75,6 +78,9 @@ function SystemSolver() {
                         placeholder={`d${i}`}
                         onChange={handleChange}
                         required
+                        className="w-20 p-3 text-center border-2 border-gray-200 rounded-lg text-base bg-gray-50 
+                                 transition-all duration-200 focus:outline-none focus:border-indigo-600 
+                                 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     />
                 </div>
             );
@@ -83,30 +89,56 @@ function SystemSolver() {
     };
 
     return (
-        <div className="system-solver-container">
-            <h2>System of Equations Solver</h2>
-            <p>Please enter the coefficients for the equations below:</p>
-            <div>
-                <label>Number of Equations: </label>
-                <select value={equationCount} onChange={(e) => setEquationCount(Number(e.target.value))}>
+        <div className="flex flex-col items-center mx-auto my-8 w-full max-w-[600px] p-8 bg-white rounded-xl shadow-lg">
+            <h2 className="text-black mb-8 text-4xl font-semibold text-center">
+                System of Equations Solver
+            </h2>
+            <p className="text-gray-600 mb-4">Please enter the coefficients for the equations below:</p>
+            
+            <div className="mb-4 text-center">
+                <label className="mr-2">Number of Equations: </label>
+                <select 
+                    value={equationCount} 
+                    onChange={(e) => setEquationCount(Number(e.target.value))}
+                    className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
+                             appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
+                             focus:ring-2 focus:ring-indigo-600/10"
+                >
                     <option value={2}>2</option>
                     <option value={3}>3</option>
                 </select>
             </div>
-            <div>
-                <label>Number of Variables: </label>
-                <select value={variableCount} onChange={(e) => setVariableCount(Number(e.target.value))}>
+            
+            <div className="mb-4 text-center">
+                <label className="mr-2">Number of Variables: </label>
+                <select 
+                    value={variableCount} 
+                    onChange={(e) => setVariableCount(Number(e.target.value))}
+                    className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
+                             appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
+                             focus:ring-2 focus:ring-indigo-600/10"
+                >
                     <option value={2}>2</option>
                     <option value={3}>3</option>
                 </select>
             </div>
-            <form onSubmit={handleSubmit}>
+
+            <form onSubmit={handleSubmit} className="w-full">
                 {renderInputs()}
-                <button type="submit">Solve</button>
+                <button 
+                    type="submit"
+                    className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg text-base font-semibold 
+                             cursor-pointer transition-all mt-6 min-w-[200px] mx-auto block shadow-md 
+                             hover:bg-indigo-800 hover:-translate-y-0.5 hover:shadow-lg 
+                             active:translate-y-0 active:shadow"
+                >
+                    Solve
+                </button>
             </form>
+
             {result && (
-                <div>
-                    <h3>Solution:</h3>
+                <div className="mt-6 p-5 bg-gray-50 rounded-lg w-full text-center border-2 border-gray-200">
+                    <h3 className="text-xl mb-2">Solution:</h3>
                     {typeof result === 'string' ? (
                         <p>{result}</p>
                     ) : (
@@ -116,7 +148,13 @@ function SystemSolver() {
                     )}
                 </div>
             )}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+
+            {error && (
+                <p className="text-red-600 mt-4 text-sm font-medium text-center bg-red-50 py-3 px-4 
+                          rounded-md border border-red-200">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

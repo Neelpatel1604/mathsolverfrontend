@@ -1,22 +1,60 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://mathsolverbackend.onrender.com'; // Update this to your actual backend URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL 
+    ? process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '')
+    : 'http://127.0.0.1:5000';  
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    timeout: 5000,  // 5 second timeout
 });
 
+// Add request interceptor for debugging
+api.interceptors.request.use(request => {
+    console.log('Starting Request:', request);
+    return request;
+});
+
+// Add response interceptor for debugging
+api.interceptors.response.use(
+    response => {
+        console.log('Response:', response);
+        return response;
+    },
+    error => {
+        console.log('Response Error:', error);
+        return Promise.reject(error);
+    }
+);
+
+export const evaluateExpression = async (expression) => {
+    try {
+        console.log('Sending expression to backend:', expression);
+        const response = await api.post('/api/evaluate-expression', {
+            expression: expression.trim()
+        });
+        console.log('Received response:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Full error object:', error);
+        if (error.code === 'ERR_NETWORK') {
+            throw new Error('Cannot connect to the server. Please make sure the backend is running.');
+        }
+        throw new Error(error.response?.data?.detail || 'Error evaluating expression');
+    }
+};
+
 export const calculate = async (operation, a, b) => {
-  try {
-    const response = await api.post('/api/calculate', { operation, a, b });
-    return response.data;
-  } catch (error) {
-    console.error('Error calculating:', error);
-    throw error;
-  }
+    try {
+        const response = await api.post('/api/calculate', { operation, a, b });
+        return response.data;
+    } catch (error) {
+        console.error('Error calculating:', error);
+        throw error;
+    }
 };
 
 export const solveQuadratic = async (a, b, c) => {

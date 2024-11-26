@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    @apply w-full h-auto relative py-2.5;
+  }
+
+  .sidebar-nav {
+    @apply flex flex-wrap justify-center;
+  }
+
+  .sidebar-nav li {
+    @apply py-2.5 px-4 text-center w-[calc(50%-30px)] border-l-0;
+  }
+
+  .main-content {
+    @apply ml-0 w-full p-2.5;
+  }
+
+  .App {
+    @apply flex-col;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-nav li {
+    @apply w-full my-1.5;
+  }
+}
