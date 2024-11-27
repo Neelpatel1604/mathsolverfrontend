@@ -7,8 +7,7 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
-    Zoom
+    Legend
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Line } from 'react-chartjs-2';
