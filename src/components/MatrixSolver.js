@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import MatrixInput from './MatrixInput';
-import ResultDisplay from './ResultDisplay';
+import MatrixResultDisplay from './MatrixResultDisplay';
 import axios from 'axios';
-import './MatrixSolver.css';
 
 const MatrixSolver = () => {
   const [matrix1, setMatrix1] = useState([['', ''], ['', '']]);
@@ -44,7 +43,7 @@ const MatrixSolver = () => {
       setMatrix2(newMatrix);
     }
   };
-const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleOperation = async () => {
     setError(null);
     setResult(null);
@@ -75,54 +74,105 @@ const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
   };
 
   return (
-    <div className="matrix-solver">
-      <h2>Matrix Solver</h2>
-      <div className="operation-select">
-        <label>Operation: </label>
-        <select value={operation} onChange={(e) => setOperation(e.target.value)}>
+    <div className="flex flex-col items-center p-8 max-w-[450px] mx-auto my-8 bg-white rounded-xl font-sans shadow-lg">
+      <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
+        Matrix Solver
+      </h2>
+      
+      <div className="flex items-center gap-2.5 mb-8 text-lg">
+        <label className="font-medium text-gray-600">Operation: </label>
+        <select 
+          value={operation} 
+          onChange={(e) => setOperation(e.target.value)}
+          className="p-3 border-2 border-gray-200 rounded-lg text-base flex-1 w-full transition-all bg-gray-50 
+                   focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+        >
           {operationOptions.map((op) => (
             <option key={op.value} value={op.value}>{op.label}</option>
           ))}
         </select>
-        {operation === 'multiply' && (
-          <select value={multiplyOrder} onChange={(e) => setMultiplyOrder(e.target.value)}>
-            <option value="1x2">Matrix 1 × Matrix 2</option>
-            <option value="2x1">Matrix 2 × Matrix 1</option>
-          </select>
-        )}
       </div>
-      <div className="matrices">
-        <div>
-          <h3>Matrix 1</h3>
-          <select onChange={(e) => handleDimensionChange(1, JSON.parse(e.target.value))}>
-            {dimensionOptions.map((option) => (
-              <option key={option.label} value={JSON.stringify({ rows: option.rows, cols: option.cols })}>
-                {option.label}
-              </option>
-            ))}
+
+      {operation === 'multiply' && (
+        <div className="mb-4  w-150px">
+          <select 
+            value={multiplyOrder} 
+            onChange={(e) => setMultiplyOrder(e.target.value)}
+            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full cursor-pointer bg-gray-50 
+                     focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10 "
+          >
+            <option value="1x2">M₁ × M₂</option>
+            <option value="2x1">M₂ × M₁</option>
           </select>
-          <MatrixInput matrix={matrix1} setMatrix={setMatrix1} rows={dimensions1.rows} cols={dimensions1.cols} />
         </div>
-        {(operation !== 'determinant' && operation !== 'inverse') && (
-          <div>
-            <h3>Matrix 2</h3>
-            <select onChange={(e) => handleDimensionChange(2, JSON.parse(e.target.value))}>
+      )}
+
+      <div className="flex justify-around w-full mb-8 gap-12 md:flex-row flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
+          <h3 className="text-gray-600 text-xl mb-4">M₁</h3>
+          <div className="flex justify-center w-full mb-4">
+            <select 
+              onChange={(e) => handleDimensionChange(1, JSON.parse(e.target.value))}
+              className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
+                       focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+            >
               {dimensionOptions.map((option) => (
                 <option key={option.label} value={JSON.stringify({ rows: option.rows, cols: option.cols })}>
                   {option.label}
                 </option>
               ))}
             </select>
+          </div>
+          <MatrixInput matrix={matrix1} setMatrix={setMatrix1} rows={dimensions1.rows} cols={dimensions1.cols} />
+        </div>
+
+        {(operation !== 'determinant' && operation !== 'inverse') && (
+          <div className="flex flex-col items-center gap-4">
+            <h3 className="text-gray-600 text-xl mb-4">M₂</h3>
+            <div className="flex justify-center w-full mb-4">
+              <select 
+                onChange={(e) => handleDimensionChange(2, JSON.parse(e.target.value))}
+                className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
+                         focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+              >
+                {dimensionOptions.map((option) => (
+                  <option key={option.label} value={JSON.stringify({ rows: option.rows, cols: option.cols })}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
             <MatrixInput matrix={matrix2} setMatrix={setMatrix2} rows={dimensions2.rows} cols={dimensions2.cols} />
           </div>
         )}
       </div>
+
       {operation === 'multiply' && !canMultiply() && (
-        <p className="error">Cannot multiply: The number of columns in the first matrix must equal the number of rows in the second matrix.</p>
+        <p className="text-red-500 mb-4 text-sm text-center">
+          Cannot multiply: The number of columns in the first matrix must equal the number of rows in the second matrix.
+          {multiplyOrder === '1x2' 
+            ? ` (M₁ columns: ${dimensions1.cols}, M₂ rows: ${dimensions2.rows})`
+            : ` (M₂ columns: ${dimensions2.cols}, M₁ rows: ${dimensions1.rows})`
+          }
+        </p>
       )}
-      <button onClick={handleOperation} disabled={operation === 'multiply' && !canMultiply()}>Perform Operation</button>
-      {error && <p className="error">{error}</p>}
-      <ResultDisplay result={result} />
+
+      <button 
+        onClick={handleOperation} 
+        disabled={operation === 'multiply' && !canMultiply()}
+        className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg text-base font-semibold cursor-pointer 
+                 transition-all mt-6 min-w-[200px] shadow-md hover:bg-indigo-800 hover:-translate-y-0.5 
+                 hover:shadow-lg active:translate-y-0 active:shadow disabled:bg-gray-400 disabled:cursor-not-allowed"
+      >
+        Calculate
+      </button>
+      
+      {error && (
+        <p className="mt-4 text-red-600 text-sm font-medium text-center bg-red-50 py-3 px-4 rounded-md border border-red-200">
+          {error}
+        </p>
+      )}
+      <MatrixResultDisplay result={result} />
     </div>
   );
 };

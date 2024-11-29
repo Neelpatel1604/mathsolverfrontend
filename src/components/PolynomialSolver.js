@@ -7,7 +7,8 @@ function PolynomialSolver() {
   const [d, setD] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const API_BASE_URL = 'https://mathsolverbackend.onrender.com';
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -34,7 +35,12 @@ function PolynomialSolver() {
       
       const data = await response.json();
       console.log("Received response:", data);
-      setResult(data.result);
+      
+      if (data.result === "No real solutions") {
+        setResult({ message: "No real solutions" });
+      } else {
+        setResult(data.result);
+      }
     } catch (error) {
       console.error("Full error object:", error);
       setError(`Error: ${error.message}`);
@@ -46,44 +52,97 @@ function PolynomialSolver() {
   };
 
   return (
-    <div>
-      <h2>Polynomial Solver</h2>
+    <div className="flex flex-col items-center p-8 max-w-[450px] mx-auto my-8 bg-white rounded-xl font-sans shadow-lg">
+      <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
+        Polynomial Solver
+      </h2>
+      
       <div>
-        <h3>Equation:</h3>
-        <p>{renderEquation()}</p>
+        <h3 className="text-gray-600 mb-4 text-xl">Equation:</h3>
+        <p className="text-lg my-4 p-4 bg-gray-50 rounded-lg text-center border-2 border-gray-200">
+          {renderEquation()}
+        </p>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>a:</label>
-          <input type="number" value={a} onChange={(e) => setA(e.target.value)} required />
+
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
+        <div className="flex items-center gap-4 sm:flex-row flex-col">
+          <label className="font-medium text-gray-600 min-w-[30px]">a:</label>
+          <input 
+            type="number" 
+            value={a} 
+            onChange={(e) => setA(e.target.value)} 
+            required
+            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all bg-gray-50 
+                     focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+          />
         </div>
-        <div>
-          <label>b:</label>
-          <input type="number" value={b} onChange={(e) => setB(e.target.value)} required />
+
+        <div className="flex items-center gap-4 sm:flex-row flex-col">
+          <label className="font-medium text-gray-600 min-w-[30px]">b:</label>
+          <input 
+            type="number" 
+            value={b} 
+            onChange={(e) => setB(e.target.value)} 
+            required
+            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all bg-gray-50 
+                     focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+          />
         </div>
-        <div>
-          <label>c:</label>
-          <input type="number" value={c} onChange={(e) => setC(e.target.value)} required />
+
+        <div className="flex items-center gap-4 sm:flex-row flex-col">
+          <label className="font-medium text-gray-600 min-w-[30px]">c:</label>
+          <input 
+            type="number" 
+            value={c} 
+            onChange={(e) => setC(e.target.value)} 
+            required
+            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all bg-gray-50 
+                     focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+          />
         </div>
-        <div>
-          <label>d:</label>
-          <input type="number" value={d} onChange={(e) => setD(e.target.value)} required />
+
+        <div className="flex items-center gap-4 sm:flex-row flex-col">
+          <label className="font-medium text-gray-600 min-w-[30px]">d:</label>
+          <input 
+            type="number" 
+            value={d} 
+            onChange={(e) => setD(e.target.value)} 
+            required
+            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all bg-gray-50 
+                     focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+          />
         </div>
-        <button type="submit">Solve</button>
+
+        <button 
+          type="submit"
+          className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg text-base font-semibold cursor-pointer 
+                   transition-all mt-6 min-w-[200px] self-center shadow-md hover:bg-indigo-800 
+                   hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow"
+        >
+          Solve
+        </button>
       </form>
+
       {result && (
-        <div>
-          <h3>Result:</h3>
-          {typeof result === 'string' ? (
-            <p>{result}</p>
+        <div className="mt-6 p-5 bg-gray-50 rounded-lg w-full text-center border-2 border-gray-200">
+          <h3 className="text-xl mb-2">Solution:</h3>
+          {result.message ? (
+            <p>{result.message}</p>
           ) : (
             Object.entries(result).map(([key, value]) => (
-              <p key={key}>{key}: {value}</p>
+              <p key={key} className="mb-1">
+                {key}: {typeof value === 'number' ? value.toFixed(4) : value}
+              </p>
             ))
           )}
         </div>
       )}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {error && (
+        <p className="text-red-600 mt-4 text-sm font-medium text-center bg-red-50 py-3 px-4 rounded-md border border-red-200">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
