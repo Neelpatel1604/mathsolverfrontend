@@ -124,7 +124,7 @@ const BasicCalculator = () => {
                     {error}
                 </p>
             )}
-            <p className='text-gray-400'> *It might take around the minute to get first result</p>
+            <p className='text-gray-400'> *It might take around a minute to get first result</p>
         </div>
     );
 };
