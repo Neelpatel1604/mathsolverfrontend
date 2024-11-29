@@ -119,7 +119,6 @@ const BasicCalculator = () => {
                     Result: {result}
                 </h3>
             )}
-            
             {error && (
                 <p className="mt-4 text-red-600 text-sm font-medium text-center bg-red-50 py-3 px-4 rounded-md border border-red-200">
                     {error}
