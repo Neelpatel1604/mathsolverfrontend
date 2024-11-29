@@ -43,7 +43,6 @@ const BasicCalculator = () => {
             setResult(null);
         }
     };
-
     return (
         <div className="flex flex-col items-center p-8 max-w-[450px] mx-auto my-8 bg-white rounded-xl font-sans shadow-lg">
             <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
