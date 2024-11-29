@@ -95,7 +95,7 @@ const ExpressionInput = () => {
     return (
         <div className="flex flex-col items-center w-full">
             <div className="w-full max-w-[600px] p-8 bg-white rounded-xl font-sans shadow-lg mb-8">
-                <h2 className="text-black mb-8 text-center text-4xl font-semibold tracking-tight">
+                <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
                     Graph Plotter
                 </h2>
                 

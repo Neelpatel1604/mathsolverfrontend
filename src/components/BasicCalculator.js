@@ -12,6 +12,7 @@ const BasicCalculator = () => {
     const [operation, setOperation] = useState('add');
     const [a, setA] = useState('');
     const [b, setB] = useState('');
+    const [isDropdownOpen,setIsDropdownOpen]= useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
@@ -45,7 +46,7 @@ const BasicCalculator = () => {
 
     return (
         <div className="flex flex-col items-center p-8 max-w-[450px] mx-auto my-8 bg-white rounded-xl font-sans shadow-lg">
-            <h2 className="text-black mb-8 text-center text-4xl font-semibold tracking-tight">
+            <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
                 Basic Calculator
             </h2>
             
@@ -77,21 +78,33 @@ const BasicCalculator = () => {
                 </div>
 
                 <div className="flex flex-row items-center gap-4 sm:flex-row">
+                    
                     <label className="font-medium text-gray-600 w-[100px] text-left text-base">
                         Operation:
                     </label>
+                    
                     <select 
-                        value={operation} 
+                        value={operation}
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
                         onChange={(e) => setOperation(e.target.value)}
-                        className="p-3 border-2 border-gray-200 rounded-lg text-base flex-1 w-full cursor-pointer bg-gray-50 appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+                        className="p-3 border-2 border-gray-200 rounded-lg 
+                        text-base flex-1 w-full cursor-pointer bg-gray-50 
+                         focus:outline-none focus:border-indigo-600
+                         focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     >
+                       
+                       
                         <option value="add">Add</option>
                         <option value="subtract">Subtract</option>
                         <option value="multiply">Multiply</option>
                         <option value="divide">Divide</option>
                         <option value="exponent">Exponent</option>
                         <option value="sqrt">Root</option>
+                        
+                       
                     </select>
+                    
+
                 </div>
 
                 <button 

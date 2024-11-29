@@ -39,7 +39,9 @@ function App() {
                         <select 
                             value={equationSolver} 
                             onChange={(e) => setEquationSolver(e.target.value)}
-                            className="p-2 text-base rounded border border-gray-300 bg-white cursor-pointer mb-5 min-w-[250px] text-left hover:border-gray-600 focus:outline-none focus:border-indigo-900 focus:ring-2 focus:ring-indigo-900/20"
+                            className="p-2 text-base rounded border border-gray-300
+                                        bg-white cursor-pointer mb-5 min-w-[250px] 
+                                        text-left focus:outline-none focus:ring-1 focus:ring-indigo-900/20"
                         >
                             <option value="quadratic">Quadratic Solver</option>
                             <option value="system">System of Equations Solver</option>

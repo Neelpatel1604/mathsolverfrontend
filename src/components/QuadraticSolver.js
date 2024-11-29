@@ -30,7 +30,7 @@ function QuadraticSolver() {
 
   return (
     <div className="flex flex-col items-center p-8 max-w-[450px] mx-auto my-8 bg-white rounded-xl font-sans shadow-lg">
-      <h2 className="text-black mb-8 text-center text-4xl font-semibold tracking-tight">
+      <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
         Quadratic Solver
       </h2>
       
@@ -61,8 +61,10 @@ function QuadraticSolver() {
             value={b} 
             onChange={(e) => setB(e.target.value)} 
             required
-            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all bg-gray-50 
-                     focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+            className="p-3 border-2 border-gray-200 rounded-lg 
+                      text-base w-full transition-all bg-gray-50 
+                     focus:outline-none focus:border-indigo-600
+                   focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
           />
         </div>
 
@@ -73,7 +75,8 @@ function QuadraticSolver() {
             value={c} 
             onChange={(e) => setC(e.target.value)} 
             required
-            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all bg-gray-50 
+            className="p-3 border-2 border-gray-200 rounded-lg 
+                    text-base w-full transition-all bg-gray-50 
                      focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
           />
         </div>

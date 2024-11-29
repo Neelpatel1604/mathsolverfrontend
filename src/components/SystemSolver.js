@@ -90,7 +90,7 @@ function SystemSolver() {
 
     return (
         <div className="flex flex-col items-center mx-auto my-8 w-full max-w-[600px] p-8 bg-white rounded-xl shadow-lg">
-            <h2 className="text-black mb-8 text-4xl font-semibold text-center">
+            <h2 className="text-black mb-8 text-3xl font-semibold text-center">
                 System of Equations Solver
             </h2>
             <p className="text-gray-600 mb-4">Please enter the coefficients for the equations below:</p>
