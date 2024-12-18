@@ -59,7 +59,9 @@ const BasicCalculator = () => {
                         value={a} 
                         onChange={(e) => setA(e.target.value)} 
                         required 
-                        className="p-3 border-2 border-gray-200 rounded-lg text-base flex-1 w-full transition-all bg-gray-50 focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+                        className="p-3 border-2 border-gray-200 rounded-lg text-base 
+                                    flex-1 w-full transition-all bg-gray-50 focus:outline-none 
+                                    focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     />
                 </div>
 
@@ -72,7 +74,10 @@ const BasicCalculator = () => {
                         value={b} 
                         onChange={(e) => setB(e.target.value)} 
                         required 
-                        className="p-3 border-2 border-gray-200 rounded-lg text-base flex-1 w-full transition-all bg-gray-50 focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+                        className="p-3 border-2 border-gray-200 
+                                   rounded-lg text-base flex-1 w-full transition-all 
+                                   bg-gray-50 focus:outline-none focus:border-indigo-600 
+                                   focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     />
                 </div>
 
@@ -108,7 +113,12 @@ const BasicCalculator = () => {
 
                 <button 
                     type="submit"
-                    className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg text-base font-semibold cursor-pointer transition-all mt-4 min-w-[120px] self-center shadow-md hover:bg-indigo-800 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow"
+                    className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg 
+                                text-base font-semibold cursor-pointer 
+                                transition-all mt-4 min-w-[120px] 
+                                self-center shadow-md hover:bg-indigo-800 
+                                hover:-translate-y-0.5 
+                                hover:shadow-lg active:translate-y-0 active:shadow"
                 >
                     Calculate
                 </button>

@@ -27,7 +27,9 @@ const MatrixInput = ({ matrix, setMatrix, rows, cols }) => {
                 value={matrix[rowIndex]?.[colIndex] === '' ? '' : matrix[rowIndex]?.[colIndex]}
                 onChange={(e) => handleInputChange(rowIndex, colIndex, e.target.value)}
                 onFocus={(e) => e.target.select()}
-                className="w-[50px] h-[30px] m-0.5 text-center text-base p-1.5 border border-gray-300 rounded focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+                className="w-[50px] h-[30px] m-0.5 text-center text-base p-1.5 border 
+                        border-gray-300 rounded focus:outline-none 
+                          focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
               />
             ))}
           </div>
