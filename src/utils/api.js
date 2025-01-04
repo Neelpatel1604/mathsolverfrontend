@@ -47,6 +47,26 @@ export const evaluateExpression = async (expression) => {
     }
 };
 
+export const differentiate = async (expression) => {
+    try {
+        const response = await api.post('/api/differentiate', { expression });
+        return response.data;
+    } catch (error) {
+        console.error('Error differentiating:', error);
+        throw error;
+    }
+};
+
+export const integrate = async (expression) => {
+    try {
+        const response = await api.post('/api/integrate', { expression });
+        return response.data;
+    } catch (error) {
+        console.error('Error integrating:', error);
+        throw error;
+    }
+};
+
 export const calculate = async (operation, a, b) => {
     try {
         const response = await api.post('/api/calculate', { operation, a, b });

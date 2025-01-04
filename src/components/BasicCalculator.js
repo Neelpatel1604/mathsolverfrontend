@@ -50,8 +50,8 @@ const BasicCalculator = () => {
             </h2>
             
             <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
-                <div className="flex flex-row items-center gap-4 sm:flex-row">
-                    <label className="font-medium text-gray-600 w-[100px] text-left text-base">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <label className="font-medium text-gray-600 w-full sm:w-[100px] text-left text-base">
                         Number 1:
                     </label>
                     <input 
@@ -60,13 +60,13 @@ const BasicCalculator = () => {
                         onChange={(e) => setA(e.target.value)} 
                         required 
                         className="p-3 border-2 border-gray-200 rounded-lg text-base 
-                                    flex-1 w-full transition-all bg-gray-50 focus:outline-none 
+                                    flex-1 transition-all bg-gray-50 focus:outline-none 
                                     focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     />
                 </div>
 
-                <div className="flex flex-row items-center gap-4 sm:flex-row">
-                    <label className="font-medium text-gray-600 w-[100px] text-left text-base">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <label className="font-medium text-gray-600 w-full sm:w-[100px] text-left text-base">
                         Number 2:
                     </label>
                     <input 
@@ -75,40 +75,32 @@ const BasicCalculator = () => {
                         onChange={(e) => setB(e.target.value)} 
                         required 
                         className="p-3 border-2 border-gray-200 
-                                   rounded-lg text-base flex-1 w-full transition-all 
+                                   rounded-lg text-base flex-1 transition-all 
                                    bg-gray-50 focus:outline-none focus:border-indigo-600 
                                    focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     />
                 </div>
 
-                <div className="flex flex-row items-center gap-4 sm:flex-row">
-                    
-                    <label className="font-medium text-gray-600 w-[100px] text-left text-base">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <label className="font-medium text-gray-600 w-full sm:w-[100px] text-left text-base">
                         Operation:
                     </label>
-                    
                     <select 
                         value={operation}
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
                         onChange={(e) => setOperation(e.target.value)}
                         className="p-3 border-2 border-gray-200 rounded-lg 
-                        text-base flex-1 w-full cursor-pointer bg-gray-50 
+                        text-base flex-1 cursor-pointer bg-gray-50 
                          focus:outline-none focus:border-indigo-600
                          focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
                     >
-                       
-                       
                         <option value="add">Add</option>
                         <option value="subtract">Subtract</option>
                         <option value="multiply">Multiply</option>
                         <option value="divide">Divide</option>
                         <option value="exponent">Exponent</option>
                         <option value="sqrt">Root</option>
-                        
-                       
                     </select>
-                    
-
                 </div>
 
                 <button 

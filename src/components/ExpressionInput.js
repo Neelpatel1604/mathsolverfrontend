@@ -100,7 +100,7 @@ const ExpressionInput = () => {
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
-                    <div className="flex items-center gap-4 sm:flex-row flex-col">
+                    <div className="flex flex-col sm:flex-row items-center gap-4">
                         <label className="font-medium text-gray-600 min-w-[100px]">Enter Function:</label>
                         <input 
                             id="expression-input"

@@ -101,8 +101,8 @@ function SystemSolver() {
                     value={equationCount} 
                     onChange={(e) => setEquationCount(Number(e.target.value))}
                     className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
-                             appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
-                             focus:ring-2 focus:ring-indigo-600/10"
+                            appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
+                            focus:ring-2 focus:ring-indigo-600/10"
                 >
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -115,8 +115,8 @@ function SystemSolver() {
                     value={variableCount} 
                     onChange={(e) => setVariableCount(Number(e.target.value))}
                     className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
-                             appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
-                             focus:ring-2 focus:ring-indigo-600/10"
+                            appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
+                            focus:ring-2 focus:ring-indigo-600/10"
                 >
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -128,9 +128,9 @@ function SystemSolver() {
                 <button 
                     type="submit"
                     className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg text-base font-semibold 
-                             cursor-pointer transition-all mt-6 min-w-[200px] mx-auto block shadow-md 
-                             hover:bg-indigo-800 hover:-translate-y-0.5 hover:shadow-lg 
-                             active:translate-y-0 active:shadow"
+                            cursor-pointer transition-all mt-6 min-w-[200px] mx-auto block shadow-md 
+                            hover:bg-indigo-800 hover:-translate-y-0.5 hover:shadow-lg 
+                            active:translate-y-0 active:shadow"
                 >
                     Solve
                 </button>

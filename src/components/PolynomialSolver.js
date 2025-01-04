@@ -65,7 +65,7 @@ function PolynomialSolver() {
       </div>
 
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
-        <div className="flex items-center gap-4 sm:flex-row flex-col">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <label className="font-medium text-gray-600 min-w-[30px]">a:</label>
           <input 
             type="number" 
@@ -77,7 +77,7 @@ function PolynomialSolver() {
           />
         </div>
 
-        <div className="flex items-center gap-4 sm:flex-row flex-col">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <label className="font-medium text-gray-600 min-w-[30px]">b:</label>
           <input 
             type="number" 
@@ -89,7 +89,7 @@ function PolynomialSolver() {
           />
         </div>
 
-        <div className="flex items-center gap-4 sm:flex-row flex-col">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <label className="font-medium text-gray-600 min-w-[30px]">c:</label>
           <input 
             type="number" 
@@ -101,7 +101,7 @@ function PolynomialSolver() {
           />
         </div>
 
-        <div className="flex items-center gap-4 sm:flex-row flex-col">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <label className="font-medium text-gray-600 min-w-[30px]">d:</label>
           <input 
             type="number" 
