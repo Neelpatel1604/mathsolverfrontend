@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SystemSolver() {
+function SystemSolver({ isDark }) {
     const [equationCount, setEquationCount] = useState(2);
     const [variableCount, setVariableCount] = useState(2);
     const [params, setParams] = useState({});
@@ -11,7 +11,7 @@ function SystemSolver() {
         const { name, value } = e.target;
         setParams({ ...params, [name]: value !== '' ? parseFloat(value) : '' });
     };
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,9 +62,11 @@ function SystemSolver() {
                         placeholder={`a${i}${j}`}
                         onChange={handleChange}
                         required
-                        className="w-20 p-3 text-center border-2 border-gray-200 rounded-lg text-base bg-gray-50 
-                                 transition-all duration-200 focus:outline-none focus:border-indigo-600 
-                                 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+                        className={`w-20 p-3 text-center border-2 ${
+                            isDark 
+                                ? 'border-gray-600 bg-gray-700 text-white' 
+                                : 'border-gray-200 bg-gray-50'
+                        } rounded-lg text-base transition-all focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                     />
                 );
             }
@@ -78,9 +80,11 @@ function SystemSolver() {
                         placeholder={`d${i}`}
                         onChange={handleChange}
                         required
-                        className="w-20 p-3 text-center border-2 border-gray-200 rounded-lg text-base bg-gray-50 
-                                 transition-all duration-200 focus:outline-none focus:border-indigo-600 
-                                 focus:bg-white focus:ring-2 focus:ring-indigo-600/10"
+                        className={`w-20 p-3 text-center border-2 ${
+                            isDark 
+                                ? 'border-gray-600 bg-gray-700 text-white' 
+                                : 'border-gray-200 bg-gray-50'
+                        } rounded-lg text-base transition-all focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                     />
                 </div>
             );
@@ -89,20 +93,22 @@ function SystemSolver() {
     };
 
     return (
-        <div className="flex flex-col items-center mx-auto my-8 w-full max-w-[600px] p-8 bg-white rounded-xl shadow-lg">
-            <h2 className="text-black mb-8 text-3xl font-semibold text-center">
+        <div className={`flex flex-col items-center p-8 max-w-[450px] mx-auto my-8 ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl font-sans shadow-lg`}>
+            <h2 className={`${isDark ? 'text-white' : 'text-black'} mb-8 text-3xl font-semibold text-center`}>
                 System of Equations Solver
             </h2>
-            <p className="text-gray-600 mb-4">Please enter the coefficients for the equations below:</p>
+            <p className={`${isDark ? 'text-gray-300' : 'text-gray-600'} mb-4`}>Please enter the coefficients for the equations below:</p>
             
             <div className="mb-4 text-center">
                 <label className="mr-2">Number of Equations: </label>
                 <select 
                     value={equationCount} 
                     onChange={(e) => setEquationCount(Number(e.target.value))}
-                    className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
-                            appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
-                            focus:ring-2 focus:ring-indigo-600/10"
+                    className={`p-3 border-2 ${
+                        isDark 
+                            ? 'border-gray-600 bg-gray-700 text-white' 
+                            : 'border-gray-200 bg-gray-50'
+                    } rounded-lg text-base cursor-pointer appearance-none focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                 >
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -114,9 +120,11 @@ function SystemSolver() {
                 <select 
                     value={variableCount} 
                     onChange={(e) => setVariableCount(Number(e.target.value))}
-                    className="p-3 border-2 border-gray-200 rounded-lg text-base cursor-pointer bg-gray-50 
-                            appearance-none focus:outline-none focus:border-indigo-600 focus:bg-white 
-                            focus:ring-2 focus:ring-indigo-600/10"
+                    className={`p-3 border-2 ${
+                        isDark 
+                            ? 'border-gray-600 bg-gray-700 text-white' 
+                            : 'border-gray-200 bg-gray-50'
+                    } rounded-lg text-base cursor-pointer appearance-none focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                 >
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -137,7 +145,11 @@ function SystemSolver() {
             </form>
 
             {result && (
-                <div className="mt-6 p-5 bg-gray-50 rounded-lg w-full text-center border-2 border-gray-200">
+                <div className={`mt-6 p-5 ${
+                    isDark 
+                        ? 'bg-gray-700 border-gray-600 text-white' 
+                        : 'bg-gray-50 border-gray-200'
+                } rounded-lg w-full text-center border-2`}>
                     <h3 className="text-xl mb-2">Solution:</h3>
                     {typeof result === 'string' ? (
                         <p>{result}</p>
@@ -150,8 +162,11 @@ function SystemSolver() {
             )}
 
             {error && (
-                <p className="text-red-600 mt-4 text-sm font-medium text-center bg-red-50 py-3 px-4 
-                          rounded-md border border-red-200">
+                <p className={`mt-4 text-sm font-medium text-center py-3 px-4 rounded-md border ${
+                    isDark 
+                        ? 'bg-red-900/50 border-red-700 text-red-200' 
+                        : 'bg-red-50 border-red-200 text-red-600'
+                }`}>
                     {error}
                 </p>
             )}

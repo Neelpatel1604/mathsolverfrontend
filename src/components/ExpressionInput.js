@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GraphDisplay from './GraphDisplay';
 import { evaluateExpression } from '../utils/api';
 
-const ExpressionInput = () => {
+const ExpressionInput = ({ isDark }) => {
     const [expression, setExpression] = useState('');
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
@@ -94,41 +94,41 @@ const ExpressionInput = () => {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <div className="w-full max-w-[600px] p-8 bg-white rounded-xl font-sans shadow-lg mb-8">
-                <h2 className="text-black mb-8 text-center text-3xl font-semibold tracking-tight">
+            <div className={`w-full max-w-[600px] p-8 ${isDark ? 'bg-gray-800 text-white' : 'bg-white'} 
+                 rounded-xl font-sans shadow-lg mb-8`}>
+                <h2 className={`${isDark ? 'text-white' : 'text-black'} mb-8 text-center text-3xl font-semibold tracking-tight`}>
                     Graph Plotter
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
-                    <div className="flex flex-col sm:flex-row items-center gap-4">
-                        <label className="font-medium text-gray-600 min-w-[100px]">Enter Function:</label>
+                    <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
+                        <label className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'} min-w-[100px]`}>
+                            Enter Function:
+                        </label>
                         <input 
                             id="expression-input"
                             type="text" 
                             value={expression} 
                             onChange={handleExpressionChange}
                             placeholder="e.g., sin(x) + x^2/2"
-                            className="p-3 border-2 border-gray-200 rounded-lg text-base w-full transition-all 
-                                     bg-gray-50 focus:outline-none focus:border-indigo-600 focus:bg-white 
-                                     focus:ring-2 focus:ring-indigo-600/10 disabled:bg-gray-100 
-                                     disabled:cursor-not-allowed"
+                            className={`p-3 border-2 ${isDark ? 'border-gray-600 bg-gray-700 text-white' : 'border-gray-200 bg-gray-50'} 
+                                     rounded-lg text-base w-full transition-all focus:outline-none 
+                                     focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                             required 
                             disabled={loading}
                         />
                     </div>
 
-                    <div className="text-sm text-gray-500 mt-2">
-                        <p>Try combining functions: sin(x) + x^2, 2*cos(x), tan(x/2)</p>
-                    </div>
-
-                    <div className="flex justify-between items-center mt-6">
+                    <div className="flex justify-between items-center gap-4">
                         <div className="relative">
                             <button
                                 type="button"
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                className="bg-gray-100 text-gray-700 py-3.5 px-4 rounded-lg text-base font-medium 
-                                         border border-gray-200 hover:bg-gray-200 transition-colors duration-200 
-                                         flex items-center gap-2"
+                                className={`px-6 py-2 rounded-lg font-medium text-base
+                                    ${isDark 
+                                        ? 'bg-gray-700 text-white border-gray-600 hover:bg-gray-600' 
+                                        : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'} 
+                                    border transition-colors duration-200 flex items-center gap-2`}
                             >
                                 Functions
                                 <svg 
@@ -142,71 +142,45 @@ const ExpressionInput = () => {
                             </button>
 
                             {isDropdownOpen && (
-                                <div className="absolute left-0 top-full mt-2 w-[280px] bg-white border border-gray-200 
-                                              rounded-lg shadow-lg z-50 max-h-[400px] overflow-y-auto">
+                                <div className={`absolute left-0 top-full mt-2 w-[280px] 
+                                    ${isDark ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'} 
+                                    border rounded-lg shadow-lg z-50 max-h-[400px] overflow-y-auto`}>
                                     <div className="p-4">
-                                        <div className="mb-4">
-                                            <h3 className="text-sm font-semibold text-gray-600 mb-2">Trigonometric:</h3>
-                                            <div className="flex flex-wrap gap-2">
-                                                {functionGroups.trigonometric.map((example) => (
-                                                    <button
-                                                        type="button"
-                                                        key={example.label}
-                                                        onClick={() => handleExampleClick(example.func)}
-                                                        className="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 rounded-md 
-                                                                 hover:bg-blue-100 transition-colors duration-200"
-                                                    >
-                                                        {example.label}
-                                                    </button>
-                                                ))}
+                                        {Object.entries(functionGroups).map(([groupName, functions]) => (
+                                            <div key={groupName} className="mb-4 last:mb-0">
+                                                <h3 className={`text-sm font-semibold mb-2 
+                                                    ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                                                    {groupName.charAt(0).toUpperCase() + groupName.slice(1)}:
+                                                </h3>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {functions.map((example) => (
+                                                        <button
+                                                            type="button"
+                                                            key={example.label}
+                                                            onClick={() => handleExampleClick(example.func)}
+                                                            className={`px-3 py-1.5 text-sm rounded-md transition-colors duration-200
+                                                                ${isDark 
+                                                                    ? 'bg-gray-600 text-gray-200 hover:bg-gray-500' 
+                                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                                                        >
+                                                            {example.label}
+                                                        </button>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                        
-                                        <div className="mb-4">
-                                            <h3 className="text-sm font-semibold text-gray-600 mb-2">Algebraic:</h3>
-                                            <div className="flex flex-wrap gap-2">
-                                                {functionGroups.algebraic.map((example) => (
-                                                    <button
-                                                        type="button"
-                                                        key={example.label}
-                                                        onClick={() => handleExampleClick(example.func)}
-                                                        className="px-3 py-1.5 text-sm bg-green-50 text-green-700 rounded-md 
-                                                                 hover:bg-green-100 transition-colors duration-200"
-                                                    >
-                                                        {example.label}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        
-                                        <div>
-                                            <h3 className="text-sm font-semibold text-gray-600 mb-2">Operators:</h3>
-                                            <div className="flex flex-wrap gap-2">
-                                                {functionGroups.operators.map((example) => (
-                                                    <button
-                                                        type="button"
-                                                        key={example.label}
-                                                        onClick={() => handleExampleClick(example.func)}
-                                                        className="px-3 py-1.5 text-sm bg-gray-50 text-gray-700 rounded-md 
-                                                                 hover:bg-gray-100 transition-colors duration-200 min-w-[40px]"
-                                                    >
-                                                        {example.label}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
+                                        ))}
                                     </div>
                                 </div>
                             )}
                         </div>
 
                         <button 
-                            type="submit" 
+                            type="submit"
                             disabled={loading}
-                            className="bg-indigo-600 text-white py-3.5 px-8 rounded-lg text-base font-semibold 
-                                     cursor-pointer transition-all min-w-[200px] shadow-md hover:bg-indigo-800 
-                                     hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow 
-                                     disabled:bg-gray-400 disabled:cursor-not-allowed justify-center"
+                            className="bg-indigo-600 text-white px-8 py-2 rounded-lg font-medium
+                                     transition-all hover:bg-indigo-700 focus:outline-none focus:ring-2 
+                                     focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 
+                                     disabled:cursor-not-allowed"
                         >
                             {loading ? 'Plotting...' : 'Plot Graph'}
                         </button>
@@ -220,10 +194,11 @@ const ExpressionInput = () => {
                 )}
             </div>
             
-            {graphData && <GraphDisplay expressionData={graphData} />}
+            {graphData && <GraphDisplay expressionData={graphData} isDark={isDark} />}
             
             {result && (
-                <div className="w-full max-w-[600px] mt-6 p-5 bg-gray-50 rounded-xl shadow-md border-2 border-gray-200">
+                <div className={`mt-6 p-5 ${isDark ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-200'} 
+                             rounded-lg w-full text-center border-2`}>
                     <h3 className="text-xl mb-4 font-semibold text-gray-800">Analysis:</h3>
                     <div className="space-y-2">
                         {result.coefficients && (
@@ -240,12 +215,10 @@ const ExpressionInput = () => {
             )}
 
             {error && (
-                <div className="w-full max-w-[600px] mt-4">
-                    <p className="text-red-600 text-sm font-medium text-center bg-red-50 py-3 px-4 
-                              rounded-md border border-red-200">
-                        {error}
-                    </p>
-                </div>
+                <p className={`mt-4 ${isDark ? 'text-red-400 bg-red-900/50 border-red-700' : 'text-red-600 bg-red-50 border-red-200'} 
+                            text-sm font-medium text-center py-3 px-4 rounded-md border`}>
+                    {error}
+                </p>
             )}
         </div>
     );

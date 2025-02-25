@@ -23,7 +23,7 @@ ChartJS.register(
     zoomPlugin
 );
 
-const GraphDisplay = ({ expressionData }) => {
+const GraphDisplay = ({ expressionData, isDark }) => {
     if (!expressionData || !expressionData.points) {
         return null;
     }
@@ -57,13 +57,13 @@ const GraphDisplay = ({ expressionData }) => {
                 position: 'center',
                 grid: {
                     display: true,
-                    color: '#e5e7eb',
+                    color: isDark ? '#374151' : '#e5e7eb',
                     drawBorder: false,
                     lineWidth: 1
                 },
                 border: {
                     display: true,
-                    color: '#4b5563',
+                    color: isDark ? '#6B7280' : '#4b5563',
                     width: 1
                 },
                 ticks: {
@@ -71,7 +71,7 @@ const GraphDisplay = ({ expressionData }) => {
                     font: {
                         size: 12
                     },
-                    color: '#4b5563',
+                    color: isDark ? '#D1D5DB' : '#4b5563',
                     padding: 5
                 },
                 min: -10,
@@ -82,13 +82,13 @@ const GraphDisplay = ({ expressionData }) => {
                 position: 'center',
                 grid: {
                     display: true,
-                    color: '#e5e7eb',
+                    color: isDark ? '#374151' : '#e5e7eb',
                     drawBorder: false,
                     lineWidth: 1
                 },
                 border: {
                     display: true,
-                    color: '#4b5563',
+                    color: isDark ? '#6B7280' : '#4b5563',
                     width: 1
                 },
                 ticks: {
@@ -96,7 +96,7 @@ const GraphDisplay = ({ expressionData }) => {
                     font: {
                         size: 12
                     },
-                    color: '#4b5563',
+                    color: isDark ? '#D1D5DB' : '#4b5563',
                     padding: 5
                 },
                 min: -10,
@@ -118,7 +118,7 @@ const GraphDisplay = ({ expressionData }) => {
                     top: 10,
                     bottom: 20
                 },
-                color: '#1f2937'
+                color: isDark ? '#D1D5DB' : '#1f2937'
             },
             tooltip: {
                 enabled: false
@@ -168,9 +168,10 @@ const GraphDisplay = ({ expressionData }) => {
     };
 
     return (
-        <div className="w-full max-w-[900px] h-[600px] mx-auto my-8 p-6 bg-white rounded-xl shadow-lg 
-                      md:max-w-[700px] md:h-[500px] sm:max-w-[450px] sm:h-[400px]">
-            <Line data={data} options={options} className="bg-white" />
+        <div className={`w-full max-w-[900px] h-[600px] mx-auto my-8 p-6 rounded-xl shadow-lg 
+                      md:max-w-[700px] md:h-[500px] sm:max-w-[450px] sm:h-[400px]
+                      ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
+            <Line data={data} options={options} className={isDark ? 'bg-gray-800' : 'bg-white'} />
         </div>
     );
 };

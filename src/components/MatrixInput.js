@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MatrixInput = ({ matrix, setMatrix, rows, cols }) => {
+const MatrixInput = ({ matrix, setMatrix, rows, cols, isDark }) => {
   const handleInputChange = (rowIndex, colIndex, value) => {
     const newMatrix = matrix.map((row, rIndex) =>
       rIndex === rowIndex
@@ -13,7 +13,7 @@ const MatrixInput = ({ matrix, setMatrix, rows, cols }) => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center  ${isDark ? 'text-white' : 'text-gray-900'}` }>
       <div className="text-4xl px-2.5">[</div>
       <div className="flex flex-col">
         {Array(rows).fill().map((_, rowIndex) => (
@@ -25,9 +25,11 @@ const MatrixInput = ({ matrix, setMatrix, rows, cols }) => {
                 value={matrix[rowIndex]?.[colIndex] === '' ? '' : matrix[rowIndex]?.[colIndex]}
                 onChange={(e) => handleInputChange(rowIndex, colIndex, e.target.value)}
                 onFocus={(e) => e.target.select()}
-                className="w-[50px] h-[30px] m-0.5 text-center text-base p-1.5 border 
-                        border-gray-300 rounded focus:outline-none 
-                        focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+                className={`w-[50px] h-[30px] m-0.5 text-center text-base p-1.5 border rounded 
+                  ${isDark 
+                    ? 'border-gray-600 bg-gray-700 text-white' 
+                    : 'border-gray-300 bg-white'} 
+                  focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600`}
               />
             ))}
           </div>
