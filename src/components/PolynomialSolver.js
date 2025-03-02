@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { solvePolynomial } from '../utils/api';
 
 function PolynomialSolver({ isDark }) {
   const [a, setA] = useState('');
@@ -7,7 +8,6 @@ function PolynomialSolver({ isDark }) {
   const [d, setD] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,25 +15,7 @@ function PolynomialSolver({ isDark }) {
     setResult(null);
     console.log("Sending data:", { a, b, c, d });
     try {
-      const response = await fetch(`${API_BASE_URL}/solve_polynomial`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          a: parseFloat(a),
-          b: parseFloat(b),
-          c: parseFloat(c),
-          d: parseFloat(d)
-        }),
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
+      const data = await solvePolynomial(parseFloat(a), parseFloat(b), parseFloat(c), parseFloat(d));
       console.log("Received response:", data);
       
       if (data.result === "No real solutions") {

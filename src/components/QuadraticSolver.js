@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { solveQuadratic } from '../utils/api';
 
 function QuadraticSolver({ isDark }) {
   const [a, setA] = useState('');
@@ -7,19 +7,18 @@ function QuadraticSolver({ isDark }) {
   const [c, setC] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Sending data:", { a, b, c });
     try {
-      const response = await axios.post(`${API_BASE_URL}/solve_quadratic`, { a: parseFloat(a), b: parseFloat(b), c: parseFloat(c) });
-      console.log("Received response:", response.data);
-      setResult(response.data.result);
+      const data = await solveQuadratic(parseFloat(a), parseFloat(b), parseFloat(c));
+      console.log("Received response:", data);
+      setResult(data.result);
       setError(null);
     } catch (error) {
-      console.error("Error:", error.response ? error.response.data : error.message);
-      setError('Error: ' + (error.response ? error.response.data.error : error.message));
+      console.error("Error:", error);
+      setError('Error: ' + error.message);
       setResult(null);
     }
   };

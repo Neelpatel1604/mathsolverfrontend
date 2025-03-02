@@ -79,7 +79,7 @@ export const calculate = async (operation, a, b) => {
 
 export const solveQuadratic = async (a, b, c) => {
   try {
-    const response = await api.post('/api/solve-quadratic', { a, b, c });
+    const response = await api.post('/api/solve_quadratic', { a, b, c });
     return response.data;
   } catch (error) {
     console.error('Error solving quadratic equation:', error);
@@ -91,8 +91,8 @@ export const solveMatrix = async (operation, matrixA, matrixB = null) => {
   try {
     const response = await api.post('/api/solve-matrix', {
       operation,
-      matrixA,
-      matrixB
+      matrix1: matrixA,
+      matrix2: matrixB
     });
     return response.data;
   } catch (error) {
@@ -104,7 +104,7 @@ export const solveMatrix = async (operation, matrixA, matrixB = null) => {
 // Placeholder functions for future implementations
 export const solveSystem = async (equations) => {
   try {
-    const response = await api.post('/api/solve-system', { equations });
+    const response = await api.post('/api/solve_system', equations);
     return response.data;
   } catch (error) {
     console.error('Error solving system of equations:', error);
@@ -112,9 +112,9 @@ export const solveSystem = async (equations) => {
   }
 };
 
-export const solvePolynomial = async (coefficients) => {
+export const solvePolynomial = async (a, b, c, d) => {
   try {
-    const response = await api.post('/api/solve-polynomial', { coefficients });
+    const response = await api.post('/api/solve_polynomial', { a, b, c, d });
     return response.data;
   } catch (error) {
     console.error('Error solving polynomial equation:', error);

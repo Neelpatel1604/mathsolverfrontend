@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { solveSystem } from '../utils/api';
 
 function SystemSolver({ isDark }) {
     const [equationCount, setEquationCount] = useState(2);
@@ -11,41 +12,32 @@ function SystemSolver({ isDark }) {
         const { name, value } = e.target;
         setParams({ ...params, [name]: value !== '' ? parseFloat(value) : '' });
     };
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
         setResult(null);
 
-        const data = {
+        const equations = {
             equationCount,
             variableCount,
             ...params
         };
 
-        console.log("Sending data:", data);
+        console.log("Sending data:", equations);
 
         try {
-            const response = await fetch(`${API_BASE_URL}/solve_system`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            const responseData = await response.json();
-            console.log("Received response:", responseData);
-
-            if (!response.ok) {
-                throw new Error(responseData.error || `HTTP error! status: ${response.status}`);
+            const data = await solveSystem(equations);
+            console.log("Received response:", data);
+            
+            if (data.result) {
+                setResult(data.result);
+            } else {
+                throw new Error('Invalid response format');
             }
-
-            setResult(responseData.result);
         } catch (error) {
-            console.error("Full error object:", error);
-            setError(`Error: ${error.message}`);
+            console.error("Error:", error);
+            setError(error.message || 'Error solving system of equations');
         }
     };
 

@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
-// Get API URL with fallback and trailing slash handling
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL 
-    ? process.env.REACT_APP_API_BASE_URL.replace(/\/$/, '')
-    : 'http://localhost:5000';
+import { calculate } from '../utils/api';
 
 // BasicCalculator component
 const BasicCalculator = ({ isDark }) => {
@@ -35,20 +30,16 @@ const BasicCalculator = ({ isDark }) => {
         }
         
         try {
-            const response = await axios.post(`${API_BASE_URL}/api/calculate`, {
-                operation,
-                a: parseFloat(a),
-                b: parseFloat(b)
-            });
+            const data = await calculate(operation, parseFloat(a), parseFloat(b));
             
-            if (response.data && response.data.result !== undefined) {
-                setResult(response.data.result);
+            if (data && data.result !== undefined) {
+                setResult(data.result);
                 setError(null);
             } else {
                 throw new Error('Invalid response format');
             }
         } catch (err) {
-            setError(err.response?.data?.error || 'Error performing calculation');
+            setError(err.message || 'Error performing calculation');
             setResult(null);
         }
     };
@@ -75,8 +66,9 @@ const BasicCalculator = ({ isDark }) => {
                                 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                     />
                 </div>
-
-                <div className="flex flex-col sm:flex-row items-center gap-4">
+              
+                <div
+                 className="flex flex-col sm:flex-row items-center gap-4">
                     <label className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'} w-full sm:w-[100px] text-left text-base`}>
                         Number 2:
                     </label>
@@ -90,6 +82,7 @@ const BasicCalculator = ({ isDark }) => {
                                 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10`}
                     />
                 </div>
+   
 
                 <div className="flex flex-col sm:flex-row items-center gap-4 relative">
                     <label className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'} w-full sm:w-[100px] text-left text-base`}>

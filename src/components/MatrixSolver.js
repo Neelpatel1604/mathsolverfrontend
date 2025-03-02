@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MatrixInput from './MatrixInput';
 import MatrixResultDisplay from './MatrixResultDisplay';
-import axios from 'axios';
+import { solveMatrix } from '../utils/api';
 
 const MatrixSolver = ({ isDark }) => {
   const [matrix1, setMatrix1] = useState([['', ''], ['', '']]);
@@ -83,8 +83,6 @@ const MatrixSolver = ({ isDark }) => {
     }
   };
   
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
-  
   const handleOperation = async () => {
     setError(null);
     setResult(null);
@@ -94,15 +92,17 @@ const MatrixSolver = ({ isDark }) => {
       if (operation === 'multiply' && multiplyOrder === '2x1') {
         [requestMatrix1, requestMatrix2] = [matrix2, matrix1];
       }
-      const response = await axios.post(`${API_BASE_URL}/api/solve-matrix`, {
+      
+      const data = await solveMatrix(
         operation,
-        matrix1: requestMatrix1,
-        matrix2: ['add', 'subtract', 'multiply'].includes(operation) ? requestMatrix2 : undefined
-      });
-      setResult(response.data.result);
+        requestMatrix1,
+        ['add', 'subtract', 'multiply'].includes(operation) ? requestMatrix2 : null
+      );
+      
+      setResult(data.result);
     } catch (error) {
       console.error('Error performing matrix operation:', error);
-      setError(error.response?.data?.error || 'An error occurred while performing the operation');
+      setError(error.message || 'An error occurred while performing the operation');
     }
   };
 

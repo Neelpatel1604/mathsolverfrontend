@@ -197,7 +197,8 @@ function App() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen md:pl-[280px]">
                 <div className="container mx-auto px-4 pt-6">
-                    <header className={`${isDark ? 'bg-gray-800' : 'bg-indigo-900'} p-4 text-white rounded-lg`}>
+                    <header className={`${isDark ? 'bg-gray-800' : 'bg-indigo-900'} 
+                    p-4 text-white rounded-lg`}>
                         <div className="flex items-center justify-between mb-4">
                             <button 
                                 onClick={() => setIsNavOpen(true)} 
@@ -209,7 +210,8 @@ function App() {
                                     stroke="currentColor" 
                                     viewBox="0 0 24 24"
                                 >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                    d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
                             </button>
                             <h1 className="text-2xl md:text-4xl font-bold text-center flex-grow">Math Solver</h1>
@@ -221,10 +223,12 @@ function App() {
                             Home / {getPageTitle()}
                         </div>
                     </header>
-                    <main className={`flex-1 p-6 ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md my-4 transition-colors duration-300`}>
+                    <main className={`flex-1 p-6 ${isDark ? 'bg-gray-800' : 'bg-white'}     
+                                     rounded-lg shadow-md my-4 transition-colors duration-300`}>
                         {renderComponent()}
                     </main>
-                    <footer className={`w-full p-4 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'} text-center text-sm`}>
+                    <footer className={`w-full p-4 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'} 
+                                        text-center text-sm`}>
                         <p>© 2025 Math Solver. All rights reserved.</p>
                     </footer>
                 </div>
